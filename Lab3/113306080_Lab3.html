@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>113306080_Lab3_Number Guessing Game</title>
+</head>
+<body>
+    <h1>113306080_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+    <script>
+        var targetNumber = Math.floor(Math.random() * 100) + 1;
+        var leftAttempt = 7;  
+        var guessedCorrectly = false;
+        var minRange = 1;
+        var maxRange = 100;
+
+        while (leftAttempt > 0 && !guessedCorrectly) {
+            var userGuess = prompt("請輸入 " + minRange + "~" + maxRange + "之間的數字"+"\n還剩下" + leftAttempt +"次機會");
+
+            if (userGuess === null || userGuess.trim() === "") {
+                alert("輸入不能為空，請輸入一個數字。");
+                continue;
+            }
+
+            var guess = parseInt(userGuess, 10);
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("請輸入有效範圍內的數字! (不能選擇範圍的上下限)");
+                continue;
+            }
+
+            if (guess === targetNumber) {
+                alert("恭喜你答對了！");
+                document.getElementById("result").innerHTML = '<img src="correct.jpg" alt="正確">';
+                guessedCorrectly = true;
+            } else {
+                leftAttempt--;  
+                if (guess < targetNumber) {
+                    minRange = guess;
+                    alert("請輸入 " + minRange + " ~ " + maxRange + "之間的數字"+"\n還剩下" + leftAttempt +"次機會");
+                } else {
+                    maxRange = guess;
+                    alert("請輸入" + minRange + " ~ " + maxRange + "之間的數字" + "\n還剩下" + leftAttempt +"次機會");
+                }
+            }
+        }
+
+        if (!guessedCorrectly) {
+            alert("遊戲結束！正確答案是 " + targetNumber + "。");
+            document.getElementById("result").innerHTML = '<img src="wrong.jpg" alt="錯誤">';
+        }
+    </script>
+</body>
+</html>
